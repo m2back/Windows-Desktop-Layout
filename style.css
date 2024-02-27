@@ -1,0 +1,107 @@
+@font-face {
+    font-family: "Segoe UI Regular";
+    src: url("./fonts/Segoe.woff");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+body,
+html {
+    height: 100%;
+    width: 100%;
+    background: url(Background.jpg) no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+
+body .allScreen {
+    display: grid;
+    max-width: 100%;
+    max-height: 100%;
+    grid-template-rows: 20fr 1fr;
+}
+
+/* .backgroundArea {
+    background-color: rgba(30, 238, 238, 0.151);
+} */
+
+.taskbar {
+    padding-bottom: 3px;
+    height: 50px;
+    width: 100vw;
+    background-color: rgba(6, 8, 19, 0.699);
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgb(104, 104, 104);
+    display: flex;
+}
+
+.startGuys {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.startGuys img {
+    height: inherit;
+    max-width: 50%;
+    max-height: 50%;
+    margin: 3px 5px 0px 5px;
+    transition: all 0.2s ease-in-out;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.startGuys img:hover {
+    background-color: rgba(97, 101, 109, 0.3);
+    border-radius: 5px;
+}
+
+.clockGuys {
+    justify-self: flex-end;
+    flex: 1;
+    direction: rtl;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.clockGuys img {
+    height: inherit;
+    max-width: 30%;
+    max-height: 50%;
+    margin: 6px 10px 0 px 6px;
+    transition: all 0.2s ease-in-out;
+    padding: 10px 8px 10px 8px;
+}
+
+.clockGuys > *:hover {
+    background-color: rgba(97, 101, 109, 0.3);
+    border-radius: 5px;
+}
+
+.taskbarClock {
+    padding: 0px 0px 1px 4px;
+    height: 80%;
+    width: 120px;
+    position: absolute;
+    display: inline;
+    transition: all 0.2s ease-in-out;
+}
+
+.taskbarClock p {
+    text-align: center;
+    src: "fonts/Segoe UI Regular.woff";
+    font-family: "Segoe UI Regular";
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+}
+
+.clockGuys > img:nth-child(3) {
+    margin-right: 130px;
+    color: white;
+}
