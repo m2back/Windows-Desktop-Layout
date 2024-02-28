@@ -162,11 +162,25 @@ const selectStart = (location) => {
 };
 
 const mouseMove = (event) => {
+    const ys = [mouseSelectPosition.y, event.clientY];
+    const xs = [mouseSelectPosition.x, event.clientX];
+    const virtualStartPoint = {
+        x: Math.min(xs),
+        y: Math.min(ys),
+    };
+
+    const virtualEndPoint = {
+        x: Math.max(xs),
+        y: Math.max(ys),
+    };
     if (isMouseDown == true) {
+        selectStart([virtualStartPoint.x, virtualStartPoint.y]);
         console.log({
             end: [event.clientX, event.clientY],
         });
-        selectEnd([event.clientX, event.clientY]);
+        // selectEnd([event.clientX, event.clientY]);
+        selectEnd([virtualEndPoint.x, virtualEndPoint.y]);
+
         console.log("Muose is Moving");
     }
 };
