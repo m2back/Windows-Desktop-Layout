@@ -1,6 +1,9 @@
 @font-face {
-    font-family: "Segoe UI Regular";
-    src: url("./fonts/Segoe.woff");
+    font-family: "Segoe UI";
+    src: url("./fonts/Segoe\ UI\ Bold.woff");
+    src: url("./fonts/Segoe\ UI\ Bold\ Italic.woff");
+    src: url("./fonts/Segoe\ UI\ Italic.woff");
+    src: url("./fonts/Segoe\ UI\ Regular.woff");
 }
 
 * {
@@ -36,7 +39,7 @@ body .allScreen {
     height: 50px;
     width: 100vw;
     background-color: rgba(6, 8, 19, 0.699);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(15px);
     border-top: 1px solid rgb(104, 104, 104);
     display: flex;
 }
@@ -51,7 +54,7 @@ body .allScreen {
     max-width: 50%;
     max-height: 50%;
     margin: 3px 5px 0px 5px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
     padding: 10px;
     margin-bottom: 10px;
 }
@@ -94,14 +97,64 @@ body .allScreen {
 
 .taskbarClock p {
     text-align: center;
-    src: "fonts/Segoe UI Regular.woff";
-    font-family: "Segoe UI Regular";
-    font-weight: normal;
+    font-family: "Segoe UI";
+    font-weight: bold;
     font-size: 15px;
     color: white;
+    direction: ltr;
 }
 
 .clockGuys > img:nth-child(3) {
     margin-right: 130px;
     color: white;
+}
+
+.rightClick {
+    background-color: rgba(6, 8, 19, 0.299);
+    backdrop-filter: blur(25px);
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    border-radius: 7px;
+    width: 220px;
+}
+
+.rightClick ul {
+    list-style: none;
+}
+
+.rightClick li {
+    padding: 5px 0;
+    border: 1px solid gren;
+    border-radius: 5px;
+    line-height: 20px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.rightClick li:hover {
+    background-color: rgba(133, 180, 182, 0.1);
+}
+.rightClick p {
+    padding-left: 10px;
+    display: inline;
+    position: absolute;
+    font-size: 14px;
+    font-family: "Segoe UI";
+    font-weight: 800;
+    color: azure;
+}
+
+.rightClick img {
+    max-width: 16px;
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
+.rightArrow {
+    float: right;
+}
+
+.inactiveItem {
+    color: dimgray;
 }
