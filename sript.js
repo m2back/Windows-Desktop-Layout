@@ -2,6 +2,7 @@ const contextMenu = document.querySelector(".contextMenu");
 const backgroundArea = document.querySelector(".backgroundArea");
 const taskbarDate = document.querySelector(".taskbarDate");
 const taskbarTime = document.querySelector(".taskbarTime");
+const selection = document.querySelector(".selection");
 
 const updateDate = () => {
     let date = new Date();
@@ -63,6 +64,9 @@ const createMenu = (location, items) => {
     }
 };
 
+// selectStart([0, 0]);
+// selectEnd([100, 100]);
+
 let items = {
     list: {
         View: {
@@ -112,21 +116,67 @@ let items = {
     arrow: "icons/arrowright.png",
 };
 
-function disableRightClick(event) {
+const disableRightClick = (event) => {
     event.preventDefault();
-}
-function handleRightClick(event) {
+};
+const handleRightClick = (event) => {
     const location = [event.clientX, event.clientY];
     createMenu(location, items);
-}
-function handleClick(event) {
+};
+const handleClick = (event) => {
     contextMenu.replaceChildren();
     contextMenu.style.padding = "0";
-}
+};
+
+let isMouseDown = false;
+
+const mouseDown = (event) => {
+    selection.style.display = "block";
+
+    selectStart([event.clientX, event.clientY]);
+    isMouseDown = true;
+    console.log("Muose is Down");
+};
+
+const mouseUp = (event) => {
+    isMouseDown = false;
+    selection.style.width = 0 + "px";
+    selection.style.height = 0 + "px";
+    selection.style.display = "none";
+};
+const selectEnd = (travel) => {
+    selection.style.width = travel[0] - 3 - mouseSelectPosition.x + "px";
+    selection.style.height = travel[1] - 3 - mouseSelectPosition.y + "px";
+};
+let = {
+    x: 0,
+    y: 0,
+};
+const selectStart = (location) => {
+    mouseSelectPosition = {
+        x: location[0],
+        y: location[1],
+    };
+    selection.style.left = location[0] + "px";
+    selection.style.top = location[1] + "px";
+};
+
+const mouseMove = (event) => {
+    if (isMouseDown == true) {
+        console.log({
+            end: [event.clientX, event.clientY],
+        });
+        selectEnd([event.clientX, event.clientY]);
+        console.log("Muose is Moving");
+    }
+};
 
 document.addEventListener("contextmenu", disableRightClick);
 backgroundArea.addEventListener("contextmenu", handleRightClick);
 backgroundArea.addEventListener("click", handleClick);
+backgroundArea.addEventListener("mousedown", mouseDown);
+document.addEventListener("mouseup", mouseUp);
+backgroundArea.addEventListener("mousemove", mouseMove);
 
 updateDate();
 

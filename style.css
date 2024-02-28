@@ -158,3 +158,12 @@ body .allScreen {
 .inactiveItem {
     color: dimgray;
 }
+
+.selection {
+    background-color: rgba(0, 141, 255, 0.13);
+    border: solid 1px rgb(29, 59, 142);
+
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
