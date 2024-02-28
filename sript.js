@@ -1,4 +1,4 @@
-const rightClick = document.querySelector(".rightClick");
+const contextMenu = document.querySelector(".contextMenu");
 const backgroundArea = document.querySelector(".backgroundArea");
 const taskbarDate = document.querySelector(".taskbarDate");
 const taskbarTime = document.querySelector(".taskbarTime");
@@ -21,11 +21,47 @@ const updateDate = () => {
     taskbarTime.textContent = `${hours}:${minutes}:${seconds}`;
 };
 
-updateDate();
+const createMenu = (location, items) => {
+    contextMenu.replaceChildren();
+    const ul = document.createElement("ul");
+    contextMenu.style.padding = "8px";
+    contextMenu.appendChild(ul);
+    const screenWidth = backgroundArea.offsetWidth;
+    const screenHeight = backgroundArea.offsetHeight;
+    const computedStyle = window.getComputedStyle(contextMenu);
+    const width = parseFloat(computedStyle.width);
+    const height = Object.keys(items.list).length * 33 + 16;
+    contextMenu.style.left = `${location[0]}px`;
+    contextMenu.style.top = `${location[1]}px`;
+    if (screenWidth - location[0] < width) {
+        contextMenu.style.left = `${location[0] - width - 16}px`;
+        contextMenu.style.top = `${location[1] - height}px`;
+    }
+    if (screenHeight - location[1] < height) {
+        contextMenu.style.left = `${location[0] - width - 16}px`;
+        contextMenu.style.top = `${location[1] - height}px`;
+    }
 
-setInterval(() => {
-    updateDate();
-}, 1000);
+    for (const key in items.list) {
+        const li = document.createElement("li");
+        const p = document.createElement("p");
+        const img = document.createElement("img");
+        p.textContent = items.list[key];
+        ul.appendChild(li);
+        p.textContent = key;
+        img.setAttribute("src", items.list[key].icon);
+        img.setAttribute("Alt", `${key} Icon`);
+        li.appendChild(img);
+        li.appendChild(p);
+        if (items.list[key].submenu != null) {
+            const img = document.createElement("img");
+            img.setAttribute("src", items.arrow);
+            img.setAttribute("Alt", `Arrow Icon`);
+            img.setAttribute("class", `rightArrow`);
+            li.appendChild(img);
+        }
+    }
+};
 
 let items = {
     list: {
@@ -76,46 +112,6 @@ let items = {
     arrow: "icons/arrowright.png",
 };
 
-const createMenu = (location, items) => {
-    rightClick.replaceChildren();
-    const ul = document.createElement("ul");
-    rightClick.style.padding = "8px";
-    rightClick.appendChild(ul);
-    const screenWidth = backgroundArea.offsetWidth;
-    const screenHeight = backgroundArea.offsetHeight;
-    const computedStyle = window.getComputedStyle(rightClick);
-    const width = parseFloat(computedStyle.width);
-    const height = Object.keys(items.list).length * 33 + 16;
-    rightClick.style.left = `${location[0]}px`;
-    rightClick.style.top = `${location[1]}px`;
-    if (screenWidth - location[0] < width) {
-        rightClick.style.left = `${location[0] - width - 16}px`;
-        rightClick.style.top = `${location[1] - height}px`;
-    }
-    if (screenHeight - location[1] < height) {
-        rightClick.style.top = `${location[1] - height}px`;
-    }
-
-    for (const key in items.list) {
-        const li = document.createElement("li");
-        const p = document.createElement("p");
-        const img = document.createElement("img");
-        p.textContent = items.list[key];
-        ul.appendChild(li);
-        p.textContent = key;
-        img.setAttribute("src", items.list[key].icon);
-        img.setAttribute("Alt", `${key} Icon`);
-        li.appendChild(img);
-        li.appendChild(p);
-        if (items.list[key].submenu != null) {
-            const img = document.createElement("img");
-            img.setAttribute("src", items.arrow);
-            img.setAttribute("Alt", `Arrow Icon`);
-            img.setAttribute("class", `rightArrow`);
-            li.appendChild(img);
-        }
-    }
-};
 function disableRightClick(event) {
     event.preventDefault();
 }
@@ -124,10 +120,16 @@ function handleRightClick(event) {
     createMenu(location, items);
 }
 function handleClick(event) {
-    rightClick.replaceChildren();
-    rightClick.style.padding = "0";
+    contextMenu.replaceChildren();
+    contextMenu.style.padding = "0";
 }
 
 document.addEventListener("contextmenu", disableRightClick);
 backgroundArea.addEventListener("contextmenu", handleRightClick);
 backgroundArea.addEventListener("click", handleClick);
+
+updateDate();
+
+setInterval(() => {
+    updateDate();
+}, 1000);

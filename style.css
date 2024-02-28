@@ -109,7 +109,7 @@ body .allScreen {
     color: white;
 }
 
-.rightClick {
+.contextMenu {
     background-color: rgba(6, 8, 19, 0.299);
     backdrop-filter: blur(25px);
     position: fixed;
@@ -119,11 +119,11 @@ body .allScreen {
     width: 220px;
 }
 
-.rightClick ul {
+.contextMenu ul {
     list-style: none;
 }
 
-.rightClick li {
+.contextMenu li {
     padding: 5px 0;
     border: 1px solid gren;
     border-radius: 5px;
@@ -132,10 +132,10 @@ body .allScreen {
     padding-right: 3px;
 }
 
-.rightClick li:hover {
+.contextMenu li:hover {
     background-color: rgba(133, 180, 182, 0.1);
 }
-.rightClick p {
+.contextMenu p {
     padding-left: 10px;
     display: inline;
     position: absolute;
@@ -145,7 +145,7 @@ body .allScreen {
     color: azure;
 }
 
-.rightClick img {
+.contextMenu img {
     max-width: 16px;
     padding-left: 3px;
     padding-top: 3px;
