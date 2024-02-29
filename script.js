@@ -64,9 +64,6 @@ const createMenu = (location, items) => {
     }
 };
 
-// selectStart([0, 0]);
-// selectEnd([100, 100]);
-
 let items = {
     list: {
         View: {
@@ -128,61 +125,38 @@ const handleClick = (event) => {
     contextMenu.style.padding = "0";
 };
 
+const drawSelection = (startCord, endCord) => {
+    selection.style.display = "block";
+    selection.style.left = startCord[0] + "px";
+    selection.style.top = startCord[1] + "px";
+    selection.style.width = endCord[0] - startCord[0] + "px";
+    selection.style.height = endCord[1] - startCord[1] + "px";
+};
+
 let isMouseDown = false;
+let mouseDownLocation = [0, 0];
+const mouseUp = (event) => {
+    selection.style.display = "none";
+    isMouseDown = false;
+};
 
 const mouseDown = (event) => {
-    selection.style.display = "block";
-
-    selectStart([event.clientX, event.clientY]);
     isMouseDown = true;
-    console.log("Muose is Down");
-};
-
-const mouseUp = (event) => {
-    isMouseDown = false;
-    selection.style.width = 0 + "px";
-    selection.style.height = 0 + "px";
-    selection.style.display = "none";
-};
-const selectEnd = (travel) => {
-    selection.style.width = travel[0] - 3 - mouseSelectPosition.x + "px";
-    selection.style.height = travel[1] - 3 - mouseSelectPosition.y + "px";
-};
-let = {
-    x: 0,
-    y: 0,
-};
-const selectStart = (location) => {
-    mouseSelectPosition = {
-        x: location[0],
-        y: location[1],
-    };
-    selection.style.left = location[0] + "px";
-    selection.style.top = location[1] + "px";
+    mouseDownLocation = [event.clientX, event.clientY];
 };
 
 const mouseMove = (event) => {
-    const ys = [mouseSelectPosition.y, event.clientY];
-    const xs = [mouseSelectPosition.x, event.clientX];
-    const virtualStartPoint = {
-        x: Math.min(xs),
-        y: Math.min(ys),
-    };
-
-    const virtualEndPoint = {
-        x: Math.max(xs),
-        y: Math.max(ys),
-    };
-    if (isMouseDown == true) {
-        selectStart([virtualStartPoint.x, virtualStartPoint.y]);
-        console.log({
-            end: [event.clientX, event.clientY],
-        });
-        // selectEnd([event.clientX, event.clientY]);
-        selectEnd([virtualEndPoint.x, virtualEndPoint.y]);
-
-        console.log("Muose is Moving");
-    }
+    if (isMouseDown == false) return;
+    mouseMoveLocation = [event.clientX, event.clientY];
+    let startCord = [
+        Math.min(mouseDownLocation[0], mouseMoveLocation[0]) - 3,
+        Math.min(mouseDownLocation[1], mouseMoveLocation[1]) - 3,
+    ];
+    let endCord = [
+        Math.max(mouseDownLocation[0], mouseMoveLocation[0]) - 3,
+        Math.max(mouseDownLocation[1], mouseMoveLocation[1]) - 3,
+    ];
+    drawSelection(startCord, endCord);
 };
 
 document.addEventListener("contextmenu", disableRightClick);

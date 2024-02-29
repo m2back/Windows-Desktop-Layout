@@ -132,7 +132,10 @@ let isMouseDown = false;
 
 const mouseDown = (event) => {
     selection.style.display = "block";
-
+    mouseSelectPosition = {
+        x: event.clientX,
+        y: event.clientY,
+    };
     selectStart([event.clientX, event.clientY]);
     isMouseDown = true;
     console.log("Muose is Down");
@@ -144,42 +147,35 @@ const mouseUp = (event) => {
     selection.style.height = 0 + "px";
     selection.style.display = "none";
 };
-const selectEnd = (travel) => {
-    selection.style.width = travel[0] - 3 - mouseSelectPosition.x + "px";
-    selection.style.height = travel[1] - 3 - mouseSelectPosition.y + "px";
+const selectEnd = (travel, start) => {
+    selection.style.width = travel[0] - 3 - start.x + "px";
+    selection.style.height = travel[1] - 3 - start.y + "px";
 };
-let = {
+let mouseSelectPosition = {
     x: 0,
     y: 0,
 };
 const selectStart = (location) => {
-    mouseSelectPosition = {
-        x: location[0],
-        y: location[1],
-    };
     selection.style.left = location[0] + "px";
     selection.style.top = location[1] + "px";
 };
 
 const mouseMove = (event) => {
+    console.log("b", mouseSelectPosition);
     const ys = [mouseSelectPosition.y, event.clientY];
     const xs = [mouseSelectPosition.x, event.clientX];
     const virtualStartPoint = {
-        x: Math.min(xs),
-        y: Math.min(ys),
+        x: Math.min(...xs),
+        y: Math.min(...ys),
     };
 
     const virtualEndPoint = {
-        x: Math.max(xs),
-        y: Math.max(ys),
+        x: Math.max(...xs),
+        y: Math.max(...ys),
     };
     if (isMouseDown == true) {
         selectStart([virtualStartPoint.x, virtualStartPoint.y]);
-        console.log({
-            end: [event.clientX, event.clientY],
-        });
-        // selectEnd([event.clientX, event.clientY]);
-        selectEnd([virtualEndPoint.x, virtualEndPoint.y]);
+        selectEnd([virtualEndPoint.x, virtualEndPoint.y], virtualStartPoint);
 
         console.log("Muose is Moving");
     }

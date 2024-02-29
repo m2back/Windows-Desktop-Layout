@@ -40,7 +40,7 @@ body .allScreen {
     width: 100vw;
     background-color: rgba(6, 8, 19, 0.699);
     backdrop-filter: blur(15px);
-    border-top: 1px solid rgb(104, 104, 104);
+    border-top: 1px solid rgba(104, 104, 104, 0.49);
     display: flex;
 }
 
@@ -160,9 +160,9 @@ body .allScreen {
 }
 
 .selection {
+    display: block;
     background-color: rgba(0, 141, 255, 0.13);
     border: solid 1px rgb(29, 59, 142);
-
     position: absolute;
     z-index: 1;
     pointer-events: none;
